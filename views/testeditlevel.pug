@@ -1,0 +1,246 @@
+doctype html
+html
+  head
+    meta(charset='utf-8')
+    |     
+    meta(name='viewport', content='width=device-width')
+    |     
+    title Level editor
+    |     
+    link(href='/resizeable.css', rel='stylesheet', type='text/css')
+    |     
+    link(href='/leveleditor.css', rel='stylesheet', type='text/css')
+    include ./header-mixin.pug
+    +header
+  |   
+  body(onload=onloadThing)
+    nav.nav
+    |     
+    .editor-layout
+      #editor-left.editor-panel
+        h1.sidebar-heading Options
+        br
+        |         
+        hr
+        br
+        |         
+        label(for='config-platform-color')
+          | Random platform color:
+          input#config-platform-color.check(type='checkbox', data-panel='config-panel-color')
+        |         
+        #config-panel-color
+          input#config-color-value.select.color(type='color', name='', value='')
+        |         
+        label(for='config-level-type')
+          | Change your level:
+          select#config-level-type.select(name='')
+            option(value='custom') Custom
+            // <option value="mapgen">Mapgen</option>
+            option(value='random', data-panel='config-panel-random') Random
+        // <div id="config-panel-mapgen" class=""></div>
+        #config-panel-random
+          | Probability of each item:
+          label(for='config-random-stone')
+            | Stone:
+            input#config-random-stone.select(type='number', name='', min='0', max='100', value='30')
+          |           
+          label(for='config-random-lava')
+            | Lava:
+            input#config-random-lava.select(type='number', name='', min='0', max='100', value='5')
+          |           
+          label(for='config-random-water')
+            | Water:
+            input#config-random-water.select(type='number', name='', min='0', max='100', value='2')
+        br
+        br
+        span Jump Height:
+        |         
+        input#config-jump.range-slider(type='range', name='config-jump-height', min='0', max='10')
+        br
+        br
+        span Player Speed:
+        |         
+        input#config-speed.range-slider(type='range', name='config-player-speed', min='0', max='5')
+        br
+        br
+        br
+        |         
+        hr
+        br
+        br
+        |         
+        button.button.success(data-panel='publish-modal-container') Publish
+        |         
+        button.button.info(data-panel='import-modal-container') Import
+        br
+        br
+        br
+        br
+        br
+        |         
+        p
+          | Icons designed by  
+          a(href='https://www.flaticon.com/authors/freepik') Freepik
+          |  from 
+          a(href='https://www.flaticon.com') Flaticon
+          |  and 
+          a(href='https://www.flaticon.com/authors/google') Google
+      |       
+      #editor-right.editor-panel
+        .editor-bar
+          .dropdown
+            button#block-dropdown(data-panel='blocks')
+              #current-block(data-panel='blocks')
+            // <div class="blocks" id="blocks" style="display: none;">
+            div(style='position: relative; width: 0; height: 0')
+              #blocks.blocks.hidden
+          |           
+          .separate-v
+          |           
+          #tools.blocks
+          |           
+          .separate-v
+          |           
+          #commands.blocks
+        |         
+        #editor
+    |     
+    #publish-modal-container.modal.hidden(data-panel='publish-modal-container')
+      .modal-content
+        .heading-container
+          h1.heading Publish
+        |         
+        .modal-controls
+          label(for='level-name')
+            | Level Name:
+            input#level-name.input-text(type='text', placeholder='Level name', name='', value='')
+          br
+          |           
+          label(for='edit-pass')
+            | Edit Password:
+            input#edit-pass.input-text(type='text', placeholder='Password', name='', value='')
+          |           
+          .button-group
+            button#publish-level.button.success Publish
+            |             
+            button.button.danger(data-panel='publish-modal-container') Cancel
+        |         
+        .close(data-panel='publish-modal-container') &times;
+    |     
+    #import-modal-container.modal.hidden(data-panel='import-modal-container')
+      .modal-content
+        .heading-container
+          h1.heading Import
+        |         
+        .modal-controls
+          .row
+            .col
+              br
+              br
+              |               
+              button.button.info(onclick='toggleSelectModal()') Select Level
+              br
+              br
+            |             
+            .form-separarator
+              .form-separate-top
+              |               
+              .form-separate-middle OR
+              |               
+              .form-separate-bottom
+            |             
+            .col
+              br
+              br
+              |               
+              input#import-name.input-text(type='text', name='', value='')
+              br
+              br
+          |           
+          .button-group
+            button#import-level.button.success(data-panel='import-modal-container') Import
+            |             
+            button.button.danger(data-panel='import-modal-container') Cancel
+        |         
+        .close(data-panel='import-modal-container') &times;
+    |     
+    #levelExists-modal-container.modal.hidden(data-panel='levelExists-modal-container')
+      .modal-content
+        .heading-container
+          h1.heading Level Exists
+        |         
+        .modal-controls
+          div
+            | The level with the name &quot;
+            span#levelExists-name
+            | &quot; already exists.
+          |           
+          .button-group
+            button.button.info(data-panel='levelExists-modal-container') OK
+        |         
+        .close(data-panel='levelExists-modal-container') &times;
+    |     
+    #levelNotExists-modal-container.modal.hidden(data-panel='levelNotExists-modal-container')
+      .modal-content
+        .heading-container
+          h1.heading Level Does Not Exist
+        |         
+        .modal-controls
+          div
+            | The level with the name &quot;
+            span#levelNotExists-name
+            | &quot; does not exist.
+          |           
+          .button-group
+            button.button.info(data-panel='levelNotExists-modal-container') OK
+        |         
+        .close(data-panel='levelNotExists-modal-container') &times;
+    |     
+    #levelSuccess-modal-container.modal.hidden(data-panel='levelSuccess-modal-container')
+      .modal-content
+        .heading-container
+          h1.heading Success!
+        |         
+        .modal-controls
+          div
+            | You successfully 
+            span#levelSuccess-type
+            |  the level &quot;
+            span#levelSuccess-name
+            | &quot;!
+          |           
+          .button-group
+            button.button.info(data-panel='levelSuccess-modal-container') OK
+            a#levelSuccess-play.button.success(data-panel='levelSuccess-modal-container') Play
+        |         
+        .close(data-panel='levelSuccess-modal-container') &times;
+    |     
+    #select-modal-container.modal.hidden(data-panel='select-modal-container')
+      .modal-content
+        .heading-container
+          h1.heading Select Level
+        |         
+        .modal-controls
+          .search-container
+            input#search.input-text(type='text', placeholder='Search')
+          |           
+          .list-container
+            #list
+          |           
+          .button-group
+            button#select-level.button.success OK
+            |             
+            button.button.danger(data-panel='select-modal-container') Cancel
+        |         
+        .close(data-panel='select-modal-container') &times;
+    //
+      <div class="context-container">
+      <div id="context-menu" class="hidden">6</div>
+      </div>
+    #context-menu.hidden
+    a.back(href="/") &times;
+    // <script src="/cavegen.js" charset="utf-8"></script>
+    script(src='/cavegen.js', charset='utf-8')
+    script(src='/resizeable.js', charset='utf-8')
+    |     
+    script(src='/leveleditor.js')

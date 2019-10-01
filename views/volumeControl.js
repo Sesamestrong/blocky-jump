@@ -1,0 +1,1 @@
+document.getElementById("song").volume=0.4;

@@ -1,0 +1,81 @@
+doctype html
+html
+  head
+    include ./header-mixin.pug
+    +header
+    title= title
+    link(href="/levelControl.css", rel="stylesheet")
+  body(onload= onloadThing)
+    p(id="coinDisplay" style="font-size:30px;")
+        | Coins:
+        span(id="numCoins") 0
+        | /
+        span(id="totalCoins") 0
+        input(type="hidden" value=levelCode id="levelCode")
+    #canvas.canvas
+      canvas#tutorial
+      |   
+      canvas#overlaid(style="position:absolute;")
+    .menu-container
+      input#menu-check.menu-check(type="checkbox", name="")
+      |   
+      .menu-icon-box
+        .menu-icon-inner
+        |     
+        .menu-icon-inner
+        |     
+        .menu-icon-inner
+      |   
+      .menu-items
+        div.logo-container
+          img.logo(src="/blockyjump.png")
+        div.menu-list
+          a.menu-item(href="#", onclick="toggleModal();") All levels
+          |     
+          a.menu-item(href="/editor/") Make a level
+          |     
+          a.menu-item(href= linkToEdit) Edit level
+          |     
+          a.menu-item(href="/random") Random level
+          |     
+          a.menu-item(href=permalink) Permalink
+          |     
+          a.menu-item(href="#" onclick="toggleMusic();") Toggle music
+          .spacer
+          |     
+          p.music-attr
+            | Music is A Whale on Its Side by Mid-Air Machine.
+            br
+            | See 
+            a(href="http://freemusicarchive.org/music/Ask%20Again/Drama_King_Action_Orchestra/A_Whale_On_Its_Side")  the source
+            |  for reference.
+    if prevLink!=""
+      if nextLink!=""
+        a.previous(href= prevLink)
+          .arrow
+        a.next(href= nextLink)
+          .arrow
+    #levelList.modal.hidden
+      .modal-content
+        .heading-container
+          h1.heading Levels
+        |     
+        .search-container
+          input#search(type="text", placeholder="Search")
+        |     
+        .list-container
+          #list
+        |     
+        .modal-close(data-close="levelList") ×
+    #j
+      #m
+    script(src="/levelControl.js")
+    script(src="https://cdnjs.cloudflare.com/ajax/libs/three.js/84/three.min.js")
+    script(src="/cavegen.js")
+    script(src="/OrbitControls.js")
+    script(src="/fox3dphysics.js")
+    audio(loop="" autoplay="" id="song")
+      source(src="/electroMusic.mp3")
+    script(defer="")
+      include volumeControl.js
+    #script(src="/gamephysics.js")

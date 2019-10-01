@@ -1,0 +1,22 @@
+{
+  "name": "app",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "latest",
+    "dotenv": "^8.1.0",
+    "express": "latest",
+    "firebase-admin": "latest",
+    "pug": "latest",
+    "randomstring": "latest",
+    "seedrandom": "latest",
+    "sha1": "latest",
+    "socket.io": "latest"
+  }
+}

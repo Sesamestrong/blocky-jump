@@ -1,0 +1,32 @@
+.container{
+  height: 100%;
+  padding: 1em;
+  box-sizing: border-box;
+}
+.split-horizontal{
+  display: flex;
+  flex-direction: row;
+}
+.split-vertical{
+  display: flex;
+  flex-direction: column;
+}
+/* .split-horizontal>:not(.gutter){
+  width: 33.3%;
+}
+.split-vertical>:not(.gutter){
+  height: 33.3%;
+  width: 100%;
+} */
+.gutter{
+  background-color: #ddd;
+  z-index: 5;
+}
+.gutter.x{
+  min-width: .5em;
+  cursor: ew-resize;
+}
+.gutter.y{
+  min-height: .5em;
+  cursor: ns-resize;
+}

@@ -1,0 +1,9 @@
+>>Make ambiance (stalactites), limit ThreeJS orbitcontrols
+>>Secure code inside one function (iife, .addEventListener)
+>>Make embeddable game
+>>Add Custom MapGens and a platform for sharing them
+>>Add Add-ons/custom blocks along with new and updated editor
+>>Make Add-on sharing system, and convert default blocks to Add-ons
+>>Rating system?
+>>Add scoreboard functionality for Add-ons
+Add stuff with MapGens like https://www.cavegenerator.ml/
