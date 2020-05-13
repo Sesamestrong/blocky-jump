@@ -398,8 +398,10 @@ function getPresses(event) {
   if (!isTyping()) {
     if (event.key == 'ArrowRight' || event.key.toLowerCase() == 'd') {
       right = true;
+      if(!doVels) {const nextButton=document.querySelector("a.next");nextButton.click();}
     } else if (event.key == 'ArrowLeft' || event.key.toLowerCase() == 'a') {
       left = true;
+      if(!doVels) {const nextButton=document.querySelector("a.previous");nextButton.click();}
     } else if (event.key == 'ArrowUp' || event.key == ' ' || event.key.toLowerCase() == 'w') {
       up = true;
     } else if (event.key == 'ArrowDown' || event.key.toLowerCase() == 's') {
