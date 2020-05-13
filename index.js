@@ -338,8 +338,8 @@ app.get('/', (req, res) => {
         linkToEdit: "/editor/random/" + randomNumThing,
         title: "Blocky Jump: Make, play, and share platforming levels!",
         isRandom: Number(randomNumThing),
-        prevLink: "/random/" + (doBigInt ? BigInt(randomNumThing) - 1 n : Number(randomNumThing) - 1),
-        nextLink: "/random/" + (doBigInt ? BigInt(randomNumThing) - 1 n : Number(randomNumThing) - 1),
+        prevLink: "/random/" + (doBigInt ? BigInt(Math.floor(randomNumThing)) - 1n : randomNumThing - 1),
+        nextLink: "/random/" + (doBigInt ? BigInt(Math.floor(randomNumThing)) - 1n : randomNumThing - 1),
         doThreeD: (req.query.threeD != "false" ? "TRUE" : "FALSE")
     });
 });
@@ -357,9 +357,11 @@ app.get("/random", (req, res) => {
 });
 
 app.get("/random/:randomSeed", (req, res) => {
+    let randomNumThing;
     let doBigInt;
     try {
-        doBigInt = Math.floor(randomNumThing) === randomNumThing || randomNumThing + 1 - 1 !== randomNumThing || randomNum - 2 + 1 + 1 !== randomNumThing;
+        randomNumThing = parseFloat(req.params.randomSeed);
+        doBigInt = Math.floor(randomNumThing) === randomNumThing || randomNumThing + 1 - 1 !== randomNumThing || randomNumThing - 2 + 1 + 1 !== randomNumThing;
     } catch (err) {
         return res.send("Invalid number. The random number to load the level by must be a number.");
     }
@@ -369,8 +371,8 @@ app.get("/random/:randomSeed", (req, res) => {
         linkToEdit: "/editor/random/" + req.params.randomSeed,
         onloadThing: "Math.seedrandom('" + req.params.randomSeed + "');colors='" + hexcolor + "';setLevel();" + (req.query.threeD != "false" ? "placeBlocks(currentLevel);doVels=null;renderer.render(scene,camera)" : ""),
         isRandom: parseFloat(req.params.randomSeed),
-        prevLink: (doBigInt ? BigInt(randomNumThing) - 1 n : randomNumThing - 1),
-        nextLink: (doBigInt ? BigInt(randomNumThing) - 1 n : randomNumThing + 1),
+        prevLink: (doBigInt ? BigInt(Math.floor(randomNumThing)) - 1n : randomNumThing - 1),
+        nextLink: (doBigInt ? BigInt(Math.floor(randomNumThing)) - 1n : randomNumThing + 1),
         doThreeD: (req.query.threeD != "false" ? "TRUE" : "FALSE"),
         permalink: "https://www.blockyjump.me/random/" + req.params.randomSeed
     });
@@ -423,8 +425,8 @@ app.get('/test3d', (req, res) => {
         linkToEdit: "/editor/random/" + randomNumThing,
         title: "Blocky Jump: Make, play, and share platforming levels!",
         isRandom: randomNumThing,
-        prevLink: "/random/" + (doBigInt ? BigInt(randomNumThing) - 1 n : randomNumThing - 1),
-        nextLink: "/random/" + (doBigInt ? BigInt(randomNumThing) - 1 n : randomNumThing + 1),
+        prevLink: "/random/" + (doBigInt ? BigInt(Math.floor(randomNumThing)) - 1 n : randomNumThing - 1),
+        nextLink: "/random/" + (doBigInt ? BigInt(Math.floor(randomNumThing)) - 1 n : randomNumThing + 1),
         doThreeD: "TRUE"
     });
 });
