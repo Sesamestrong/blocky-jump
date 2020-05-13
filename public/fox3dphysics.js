@@ -406,10 +406,10 @@ function getPresses(event) {
       down = true;
     }
     else if (event.key.toLowerCase() == 'r') { toggleGame(); if(!doVels){toggleGame();}}
-      else if(event.key.toLowerCase() == 'q'){
-const nextButton=document.querySelector("a.next");nextButton.click();
-      }
       else if(event.key.toLowerCase() == 'e'){
+const prevButton=document.querySelector("a.next");prevButton.click();
+      }
+      else if(event.key.toLowerCase() == 'q'){
 const nextButton=document.querySelector("a.previous");nextButton.click();
       }
   }
