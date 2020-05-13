@@ -338,8 +338,8 @@ app.get('/', (req, res) => {
         linkToEdit: "/editor/random/" + randomNumThing,
         title: "Blocky Jump: Make, play, and share platforming levels!",
         isRandom: Number(randomNumThing),
-        prevLink: "/random/" + (doBigInt ? BigInt(Math.floor(randomNumThing)) - 1n : randomNumThing - 1),
-        nextLink: "/random/" + (doBigInt ? BigInt(Math.floor(randomNumThing)) - 1n : (randomNumThing - 1)),
+        prevLink: "/random/" + (doBigInt ? BigInt(Math.floor(randomNumThing)) - 1n : randomNumThing - 1).toString(),
+        nextLink: "/random/" + (doBigInt ? BigInt(Math.floor(randomNumThing)) + 1n : randomNumThing + 1).toString(),
         doThreeD: (req.query.threeD != "false" ? "TRUE" : "FALSE")
     });
 });
@@ -371,8 +371,8 @@ app.get("/random/:randomSeed", (req, res) => {
         linkToEdit: "/editor/random/" + req.params.randomSeed,
         onloadThing: "Math.seedrandom('" + req.params.randomSeed + "');colors='" + hexcolor + "';setLevel();" + (req.query.threeD != "false" ? "placeBlocks(currentLevel);doVels=null;renderer.render(scene,camera)" : ""),
         isRandom: parseFloat(req.params.randomSeed),
-        prevLink: (doBigInt ? BigInt(Math.floor(randomNumThing)) - 1n : (randomNumThing - 1)),
-        nextLink: (doBigInt ? BigInt(Math.floor(randomNumThing)) - 1n : (randomNumThing + 1)),
+        prevLink: (doBigInt ? BigInt(Math.floor(randomNumThing)) - 1n : (randomNumThing - 1)).toString(),
+        nextLink: (doBigInt ? BigInt(Math.floor(randomNumThing)) + 1n : (randomNumThing + 1)).toString(),
         doThreeD: (req.query.threeD != "false" ? "TRUE" : "FALSE"),
         permalink: "https://www.blockyjump.me/random/" + req.params.randomSeed
     });
@@ -425,8 +425,8 @@ app.get('/test3d', (req, res) => {
         linkToEdit: "/editor/random/" + randomNumThing,
         title: "Blocky Jump: Make, play, and share platforming levels!",
         isRandom: randomNumThing,
-        prevLink: "/random/" + (doBigInt ? BigInt(Math.floor(randomNumThing)) - 1n : randomNumThing - 1),
-        nextLink: "/random/" + (doBigInt ? BigInt(Math.floor(randomNumThing)) - 1n : randomNumThing + 1),
+        prevLink: "/random/" + (doBigInt ? BigInt(Math.floor(randomNumThing)) - 1n : randomNumThing - 1).toString(),
+        nextLink: "/random/" + (doBigInt ? BigInt(Math.floor(randomNumThing)) + 1n : randomNumThing + 1).toString(),
         doThreeD: "TRUE"
     });
 });
