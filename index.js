@@ -328,7 +328,7 @@ var urlencodedParser = bodyParser.urlencoded({
 });
 app.get('/', (req, res) => {
     let randomNumThing = Math.random() * 10000000000000000;
-    const doBigInt = Math.floor(randomNumThing) === randomNumThing || randomNumThing + 1 - 1 !== randomNumThing || randomNum - 2 + 1 + 1 !== randomNumThing;
+    const doBigInt = Math.floor(randomNumThing) === randomNumThing || randomNumThing + 1 - 1 !== randomNumThing || randomNumThing - 2 + 1 + 1 !== randomNumThing;
     hexcolor = getColorFromSeed(randomNumThing);
     res.render("newUIlevel", {
         title: "Blocky Jump",
@@ -416,7 +416,7 @@ app.get('/levels/:levelName', (req, res) => {
 });
 app.get('/test3d', (req, res) => {
     let randomNumThing = Math.random() * 10000000000000000;
-    const doBigInt = Math.floor(randomNumThing) === randomNumThing || randomNumThing + 1 - 1 !== randomNumThing || randomNum - 2 + 1 + 1 !== randomNumThing;
+    const doBigInt = Math.floor(randomNumThing) === randomNumThing || randomNumThing + 1 - 1 !== randomNumThing || randomNumThing - 2 + 1 + 1 !== randomNumThing;
     hexcolor = getColorFromSeed(randomNumThing);
     res.render("level", {
         title: "Blocky Jump",
