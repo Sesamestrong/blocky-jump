@@ -309,7 +309,7 @@ var urlencodedParser = bodyParser.urlencoded({
   extended: false
 });
 app.get('/', (req, res) => {
-  let randomNumThing = Math.random() * 10000000000000000;
+  let randomNumThing = BigInt(Math.random() * 10000000000000000);
   hexcolor = getColorFromSeed(randomNumThing);
   res.render("newUIlevel", {
     title: "Blocky Jump",
@@ -317,7 +317,9 @@ app.get('/', (req, res) => {
     permalink: "https://www.blockyjump.me/random/" + randomNumThing,
     isRandom:Number(randomNumThing),
     linkToEdit: "/editor/random/" + randomNumThing,
-    title: "Blocky Jump: Make, play, and share platforming levels!", isRandom: Number(randomNumThing), prevLink: "/random/"+(Number(randomNumThing) - 1), nextLink: "/random/"+(Number(randomNumThing) + 1),
+    title: "Blocky Jump: Make, play, and share platforming levels!",
+    prevLink: "/random/"+(randomNumThing - 1n).toString(),
+    nextLink: "/random/"+(randomNumThing + 1n).toString(),
     doThreeD: (req.query.threeD != "false" ? "TRUE" : "FALSE")
   });
 });
@@ -336,8 +338,11 @@ app.get("/random", (req, res) => {
 });
 
 app.get("/random/:randomSeed", (req, res) => {
-  let theInt=parseInt(req.params.randomSeed);
-  if (isNaN(theInt)) {
+  let theInt;
+  try{
+    theInt=BigInt(req.params.randomSeed.match(""));
+  }
+  catch(err){
     return res.send("Invalid number. The random number to load the level by must be a number.");
   }
   else {
@@ -346,9 +351,8 @@ app.get("/random/:randomSeed", (req, res) => {
       title: "Random level #" + req.params.randomSeed,
       linkToEdit: "/editor/random/" + req.params.randomSeed,
       onloadThing: "Math.seedrandom('" + req.params.randomSeed + "');colors='" + hexcolor + "';setLevel();" + (req.query.threeD != "false" ? "placeBlocks(currentLevel);doVels=null;renderer.render(scene,camera)" : ""),
-      isRandom: parseFloat(req.params.randomSeed),
-      prevLink: parseFloat(req.params.randomSeed) - 1,
-      nextLink: parseFloat(req.params.randomSeed) + 1,
+      prevLink: theInt - 1n,
+      nextLink: theInt + 1n,
       doThreeD: (req.query.threeD != "false" ? "TRUE" : "FALSE"),
       permalink:"https://www.blockyjump.me/random/"+req.params.randomSeed
     });
