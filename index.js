@@ -425,8 +425,8 @@ app.get('/test3d', (req, res) => {
         linkToEdit: "/editor/random/" + randomNumThing,
         title: "Blocky Jump: Make, play, and share platforming levels!",
         isRandom: randomNumThing,
-        prevLink: "/random/" + (doBigInt ? BigInt(Math.floor(randomNumThing)) - 1 n : randomNumThing - 1),
-        nextLink: "/random/" + (doBigInt ? BigInt(Math.floor(randomNumThing)) - 1 n : randomNumThing + 1),
+        prevLink: "/random/" + (doBigInt ? BigInt(Math.floor(randomNumThing)) - 1n : randomNumThing - 1),
+        nextLink: "/random/" + (doBigInt ? BigInt(Math.floor(randomNumThing)) - 1n : randomNumThing + 1),
         doThreeD: "TRUE"
     });
 });
